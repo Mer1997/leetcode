@@ -1,3 +1,4 @@
+//Solution 1
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -20,5 +21,25 @@ public:
            
         }
         
+    }
+};
+
+//Solution 2
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        unordered_map<int, int> my_map;
+        for(int i = 0; i != nums.size(); i++){
+            if(my_map[target - nums[i]] != 0){
+                res.push_back(my_map[target - nums[i]] - 1);
+                res.push_back(i);
+                break;
+            }
+            else{
+                my_map[nums[i]] = i + 1;
+            }
+        }
+        return res;
     }
 };
