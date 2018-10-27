@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        vector<int>::iterator it  = nums.begin();  
+        int maxSum = *it;  
+        int theSum = *it;  
+          
+        for(it = it+1 ; it != nums.end(); it++){  
+            theSum = max(theSum + *it, *it);  
+              
+            if(theSum > maxSum)  
+                maxSum = theSum;  
+        }  
+          
+        return maxSum;  
+    }
+};

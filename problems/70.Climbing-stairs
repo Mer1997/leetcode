@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        unordered_map<int,int> record;
+        int re = _dp(n, record);
+        return re;
+    }
+    int _dp(int n, unordered_map<int,int> &record){
+        int re = 0;
+        if(n == 0) return 0;
+        if(n == 1) return 1;
+        if(n == 2) re += 1;
+        if(record[n] != 0) return record[n];
+        re += _dp(n - 1, record) + _dp(n - 2, record);
+        record[n] = re;
+        return re;
+    }
+};
