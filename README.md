@@ -1,4 +1,4 @@
-## Personal leetcode anwsers
+## Personal leetcode answers
 mer, 2018.10
 
 - Just for learning algorithm and data struct, all solutions written by myself.
