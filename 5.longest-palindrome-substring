@@ -1,0 +1,49 @@
+class Solution {
+public:    
+    string process(const string s){
+        string ret = "^";
+        for(auto c: s){
+            ret += "#" + c;
+        }
+        ret += "#$";
+        return ret;
+    }
+    
+    string longestPalindrome(string s) {
+        string T = process(s);
+        
+        vector<int> P(T.size(), 0);
+        int C = 0, R = 0;
+        for(int i = 1; i != T.size(); ++i){
+            
+            int i_mirror = 2*C - i;
+
+            P[i] = (R > i) ? min(R-i, P[i_mirror]) : 0;
+            
+            while(T[i - 1 - P[i]] == T[i + 1 + P[i]])
+                P[i] ++;
+            
+            
+            if(i + P[i]  > R){
+                C = i;
+                R = i + P[i];
+            }
+            
+        }
+        
+        
+        int maxlen = 0;
+        int centerIndex = 0;
+        
+        for(int i = 0; i != P.size(); ++i){
+            if(P[i] > maxlen){
+                centerIndex = i;
+                maxlen = P[i];
+            }
+        }
+        
+        return s.substr((centerIndex-1-maxlen)/2,maxlen);
+        
+
+    }
+};
