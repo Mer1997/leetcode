@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows == 1) return s;
+        --numRows;
+        int cur = numRows;
+        string t;
+        while(cur != -1){
+            int i = numRows - cur;
+            for(; i < s.length(); i+=2*numRows){
+                t+=s[i];                
+                if(cur != 0 && cur != numRows){
+                    if(i+2*cur < s.length())
+                        t+=s[i+2*cur];
+                }
+            }
+            --cur;
+        }
+        return t;
+    }
+};
+
+
+
