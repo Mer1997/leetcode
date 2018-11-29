@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if(root==NULL) return;
+        if(root->left == NULL && root->right == NULL) return;
+        else if(root->left == NULL) flatten(root->right);
+        else if(root->right == NULL) {
+            root->right = root->left;
+            root->left=NULL;
+            flatten(root->right);
+        }
+        else{
+            _cat(root,root->left,root->right);
+        }
+    }
+    void _cat(TreeNode* root, TreeNode* left, TreeNode* right){
+        TreeNode *p;
+        if(isleave(left) && isleave(right)){
+            root->right = left;
+            root->left = NULL;
+            left->right = right;
+            return;
+        }
+        else if(isleave(left)){
+            root->right = left;
+            root->left=NULL;
+            left->right = right;
+            flatten(right);
+        }
+        else if(isleave(right)){
+            flatten(left);
+            p = left;
+            while(p->right != NULL) p = p->right;
+            p->right = right;
+            root->right = left;
+            root->left = NULL;
+        }
+        else{
+            flatten(left);
+            flatten(right);
+            p = left;
+            while(p->right != NULL) p = p->right;
+            p->right = right;
+            root->right = left;
+            root->left = NULL;
+        }
+        p=NULL;
+    }
+    bool isleave(TreeNode* node){
+        if(node->left == NULL && node->right == NULL) return true;
+        else return false;
+    }
+};
