@@ -1,0 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        int maxrecord = root->val;
+        int max = _record(root, maxrecord);
+        max = maxrecord > max ? maxrecord : max;
+        return max;
+    }
+    int _record(TreeNode* root, int &record1){
+        int maxleft = 0, maxright = 0, max =root->val, record;
+        if(root->left == NULL && root->right == NULL) return root->val;
+        if(root->left != NULL && root->right != NULL){
+            maxright = _record(root->right, record1);
+            maxleft = _record(root->left, record1);
+            max = maxright > maxleft ? maxright : maxleft;
+            if(max > maxleft + maxright + root->val ){
+                if(max > max + root->val) record =  max > root->val ? max : root->val;
+                else record = max + root->val > root->val ? max + root->val : root->val;
+            }else if(maxleft + maxright + root->val > max + root->val)
+                record = maxleft + maxright + root->val > root->val ? maxleft + maxright + root->val : root->val;
+            else record = max + root->val > root->val ? max + root->val : root->val;
+            record1 = record > record1 ? record : record1;            
+            return max + root->val > root->val ? max + root->val : root->val;  
+        }
+        if(root->left == NULL){
+            maxright = _record(root->right, record1);
+            if(maxright > maxright + root->val){
+                record =  maxright > root->val ? maxright : root->val;
+            } 
+            else record = maxright + root->val > root->val ? maxright + root->val : root->val;
+            record1 = record > record1 ? record : record1;            
+            return maxright + root->val > root->val ? maxright + root->val : root->val;
+        }
+        if(root->right == NULL){
+            maxleft = _record(root->left, record1);
+            if(maxleft > maxleft + root->val){
+                record = maxleft > root->val ? maxleft : root->val;
+            } 
+            else record = maxleft + root->val > root->val ? maxleft + root->val : root->val;
+            record1 = record > record1 ? record : record1;
+            return maxleft + root->val > root->val ? maxleft + root->val : root->val;
+        }
+    }
+    
+     
+};
