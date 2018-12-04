@@ -1,0 +1,57 @@
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        m_top = m_button = NULL;
+        minvalue = numeric_limits<int>::max();
+    }
+    
+    void push(int x) {
+        struct stacknode *p = new struct stacknode();
+        p->data = x;
+        p->next = m_top;
+        m_top = p;
+        p = NULL;
+        minvalue = minvalue > m_top->data ? m_top->data : minvalue;
+    }
+    
+    void pop() {
+        if(m_top == m_button) return;
+        else{
+            bool flag = false;
+            struct stacknode *p = m_top;
+            m_top = m_top->next;
+            if(p->data == minvalue) flag = true;
+            delete p;
+            p = m_top; minvalue = numeric_limits<int>::max();
+            while(p != NULL){
+                minvalue = minvalue > p->data ? p->data : minvalue;
+                p = p->next;
+            }
+            p = NULL;
+        }
+    }
+    
+    int top() {
+        return m_top->data;
+    }
+    
+    int getMin() {
+        return minvalue;
+    }
+private:
+    struct stacknode{
+        int data;
+        struct stacknode *next;
+    }*m_top,*m_button;
+    int minvalue;
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
