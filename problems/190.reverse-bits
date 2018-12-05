@@ -1,0 +1,21 @@
+class Solution {
+private:
+    unordered_map<uint32_t,uint32_t> record;
+public:
+    uint32_t reverseBits(uint32_t n) {
+        if(record[n] != 0) return record[n];
+        queue<int> converse2;
+        int i = 32;
+        while(i-- != 0){
+            converse2.push(n % 2);
+            n = n >> 1;
+        }
+        int res = 0;
+        while(!converse2.empty()){
+            res = res * 2 + converse2.front();
+            converse2.pop();
+        }
+        record[n] = res;
+        return res;
+    }
+};
