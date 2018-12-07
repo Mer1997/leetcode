@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int binary_search_(vector<int> &nums, int left, int right, const int target){
+        if(left + 1 == right) return target <= nums[left] ? left : right;
+        int mid = left + (right - left)/2;
+        if(nums[mid] == target)
+            return mid;
+        if(nums[mid] < target)
+            return binary_search_(nums, mid, right, target);
+        if(nums[mid] > target)
+            return binary_search_(nums, left, mid, target);
+        
+    }
+    int searchInsert(vector<int>& nums, int target) {
+        return binary_search_(nums, 0, nums.size(), target);
+    }
+};
