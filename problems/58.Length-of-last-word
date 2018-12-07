@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int res = 0;
+        int length = 0;
+        for(auto c: s){
+            if(c == ' '){
+                res = length == 0 ? res : length;
+                length = 0;
+            }
+            else{ ++length;}
+        }
+        res = length == 0 ? res : length;
+        return res;
+    }
+};
