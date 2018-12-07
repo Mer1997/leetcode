@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int left;
+    int right;
+    vector<string> re;
+    void solve(string s, const int n, int nomatch){
+        if(s.length() == n*2){
+            re.push_back(s);
+            return;
+        }
+        if(left != 0){
+            --left;
+            solve(s+"(", n, nomatch + 1);
+            ++left;
+        }
+        if(right != 0 && nomatch != 0){
+            --right;
+            solve(s+")", n, nomatch - 1);
+            ++right;
+        }
+        
+    }
+    vector<string> generateParenthesis(int n) {
+        left = right = n;
+        solve("", n, 0);
+        return re;
+    }
+};
