@@ -1,0 +1,21 @@
+class Solution {
+public:
+    const vector<string> p = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    vector<int> nums;
+    vector<string> re;
+    
+    void dfs(int cur, string s){
+        
+        
+        
+    }
+    
+    vector<string> letterCombinations(string digits) {
+        for(auto d: digits)
+            nums.push_back(d - '0');
+        
+        dfs(0, "");
+        
+        return re;
+    }
+};
