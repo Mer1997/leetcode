@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>> re;
+    
+    bool check_(const vector<int> e)const{
+        for(auto n: re){
+            if(n[0] == e[0] && n[1] == e[1] && n[2] == e[2])
+                return true;
+        }
+        return false;
+    }
+    
+    void divide(const vector<int> nums, int right, const int target){
+        
+        if(right == 0) return;
+        int n_target = target -nums[right - 1];
+        
+        for(int left = 0; left != right; ++left){
+            int c_target = n_target - nums[left];
+            int i = left + 1, j = right - 2;
+            while(i < j){
+                if(nums[i] + nums[j] == c_target){
+                    vector<int> t = {nums[left], nums[i], nums[j], nums[right-1]};
+                    bool existed = check_(t);
+                    if(!existed) re.push_back(t);
+                
+                    while(nums[i] == nums[i+1]) ++i;
+                    while(nums[j-1] == nums[j]) --j;
+                    ++i;--j;
+                }else if(nums[i] + nums[j] > c_target){ --j; }
+                else ++i;
+            
+            }
+        }
+        
+        //while(left + 1 < nums.size() && nums[left] == nums[left+1]) ++left;
+        //while(right-2 > 0 && nums[right-1] == nums[right-2]) --right;
+        divide(nums, right-1, target);
+        
+        
+    }
+    
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        divide(nums, nums.size(), target);
+        return re;
+    }
+};
