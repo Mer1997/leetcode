@@ -1,0 +1,37 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val = NULL;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+class Solution {
+public:
+    vector<vector<int>> ans;
+    
+    void levelOrder_(Node* root, int deep){
+        if(root == NULL) return;
+        if(deep + 1 > ans.size()){
+            vector<int> t;
+            t.push_back(root->val);
+            ans.push_back(t);
+        }else ans[deep].push_back(root->val);
+        
+        for(int i = 0; i != root->children.size(); ++i){
+            levelOrder_(root->children[i], deep+1);
+        }
+    }
+    
+    vector<vector<int>> levelOrder(Node* root) {
+        levelOrder_(root, 0);
+        return ans;
+    }
+};
