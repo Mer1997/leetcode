@@ -5,13 +5,21 @@ public:
     vector<string> re;
     
     void dfs(int cur, string s){
-        
+        if(cur == nums.size()){
+            re.push_back(s);
+            return ;  
+        } 
+        int t = nums[cur];    
+        for(int i = 0; i != p[t].size(); ++i){
+            dfs(cur + 1, s+p[t][i]);
+        }
         
         
     }
     
     vector<string> letterCombinations(string digits) {
-        for(auto d: digits)
+	if(digits == "") return re;
+	for(auto d: digits)
             nums.push_back(d - '0');
         
         dfs(0, "");
