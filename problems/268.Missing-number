@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        vector<bool> flag(nums.size(), false);
+        for(int i = 0; i != nums.size(); i++)
+            flag[nums[i]] = true;
+        for(int i = 0; i != flag.size(); i++)
+            if(flag[i] == false) return i;
+        return flag.size();
+    }
+};
