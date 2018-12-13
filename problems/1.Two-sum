@@ -2,10 +2,10 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        if(nums.size() < 3) return nums;
+        if(nums.size() < 3) return nums;//return num if size < 3
         else{
             vector<int> result;
-            unordered_map<int, int> mymap;
+            unordered_map<int, int> mymap;//save target
             mymap[target] = 1;
         //    std::sort(nums.begin(), nums.end());
             int find_num;
