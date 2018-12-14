@@ -1,0 +1,20 @@
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        bool beg = isBadVersion(1);
+        if(beg == true) return 1;
+        bool en = isBadVersion(n);
+        int re = _BV(1, n, beg, en);
+        return re;
+    }
+    int _BV(int begin, int end, bool beg, bool en){
+        if(beg == en) return 0;
+        if(begin + 1 >= end) return end;
+        int middle = (begin + 1) / 2 + end / 2;
+        bool mid = isBadVersion(middle);
+        return _BV(begin, middle, beg, mid) | _BV(middle, end, mid, en);
+    }
+};
