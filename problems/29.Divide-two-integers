@@ -1,0 +1,44 @@
+static const auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
+/*类似二进制乘法，设法将 a/b 化为 a = b * 2^n + c的形式，以提高效率
+*/
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if(dividend == INT_MIN && divisor == -1)    return INT_MAX;
+        if(dividend == 0)   return 0;
+        long long a = abs((long long )dividend);//防止溢出 such that INT_MIN
+        long long b = abs((long long)divisor);
+        long long counter = 1, sum = 0;//单次计数，总数
+        long long temp = b;
+        while(a - b >= 0)//未除尽
+        {
+            while(a - temp >= 0)//超出dividend的范围
+            {
+                temp = temp << 1; //temp*2
+                counter = counter << 1;
+            }
+            temp = temp >> 1;
+            a = a - temp;
+            counter = counter >> 1;
+            sum += counter;
+            
+            counter = 1;
+            temp = b;
+        }
+        
+        
+        if( dividend < 0 &&  divisor >0)
+            return -sum;
+        if(dividend >0 &&  divisor <0)
+            return -sum;
+        else
+            return sum;
+        
+    }
+};
