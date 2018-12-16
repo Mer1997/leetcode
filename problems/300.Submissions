@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        if(nums.size() ==0 || nums.size() == 1) return nums.size();
+        vector<int> res;
+        res.push_back(nums[0]);
+        for(auto now: nums){
+            if(now < res[0]) res[0] = now;
+            for(int i = 1; i != res.size(); i++){
+                if(now < res[i] && now > res[i - 1]){
+                    res[i] = now;
+                    break;
+                }
+            }
+            if(now > res[res.size() - 1]) res.push_back(now);
+            
+        }
+        
+        return res.size();
+    }
+};
