@@ -1,0 +1,40 @@
+static const auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
+
+/*  backtracking
+    too complex
+*/
+class Solution {
+public:
+    vector<vector<int>> res_;
+    
+    void comb_(const vector<int> candidates, vector<int> &new_, const int cur, int &target){
+        if(target == 0){
+            res_.push_back(new_);
+            return;
+        }
+        for(int i = cur; i != candidates.size(); ++i){
+            if(candidates[i] > target) continue;
+            int target_ = target - candidates[i];
+            new_.push_back(candidates[i]);
+            comb_(candidates, new_, i, target_);
+            new_.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        for(int i = 0; i != candidates.size(); ++i){
+            if(candidates[i] > target) continue;
+            vector<int> new_;
+            int target_ = target - candidates[i];
+            new_.push_back(candidates[i]);
+            comb_(candidates, new_, i, target_);
+            new_.pop_back();
+        }
+        return res_;
+    }
+};
