@@ -1,0 +1,25 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+  ListNode* oddEvenList(ListNode* head) { 
+      if (!head) return head; 
+      ListNode *evenhead = head->next; 
+      ListNode *even = evenhead; 
+      ListNode *odd = head; 
+      while (odd->next && even->next){ //必须先判断奇数, 再判断偶数, 因为有可能整个链表就一个数.
+          odd->next = even->next; //[先] 必须先加入奇数位置, 再加入偶数位置. 因为初始化时, 偶数位置是靠奇数位置确定的. 
+          odd = odd->next; even->next = odd->next; //[后]
+          even = even->next; 
+      } 
+      odd->next = evenhead; 
+      return head; 
+  }
+
+};
