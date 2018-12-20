@@ -1,0 +1,21 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        if(nums.size() < 3) return false;
+        int i, j;
+        i = j = numeric_limits<int>::max();
+        for(int ai: nums){
+            if(ai < i) i = ai;
+            if(ai > i && ai <= j) j = ai;
+            if(ai > j) return true;
+        }
+        return false;
+        
+    }
+};
