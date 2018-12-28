@@ -1,0 +1,28 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    
+    unordered_map<char,int> val_={{'I',1},{'V',5},{'X',10},{'L',50},{'C',100},{'D',500},{'M',1000}};
+    int romanToInt(string s) 
+    {
+       int sum = val_[s.back()];
+       for (int i = s.length() - 2; i >= 0; --i) 
+       {
+           if (val_[s[i]] < val_[s[i + 1]])
+           {
+               sum -= val_[s[i]];
+           }
+           else
+           {
+               sum += val_[s[i]];
+           }
+       }
+
+       return sum;
+    }
+};
