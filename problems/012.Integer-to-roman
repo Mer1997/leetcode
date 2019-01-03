@@ -6,7 +6,7 @@ const static auto io_sync_off = [](){
 }();
 class Solution {
 public:
-   
+/*This idea is from disscuss, it's work but I don't like*/   
     string intToRoman(int num) {
         vector<string> M = {"", "M", "MM", "MMM"};
         vector<string> C = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
