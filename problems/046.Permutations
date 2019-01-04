@@ -8,8 +8,11 @@ class Solution {
 public:
     vector<vector<int>> res_;
 
+    //backtracking
     void permute(vector<int>& nums, int cur){
-        if(cur == nums.size()){
+        
+	//end of recursion
+	if(cur == nums.size()){
             vector<int> t;
             for(auto i:nums){
                 t.push_back(i);
@@ -17,8 +20,10 @@ public:
             res_.push_back(t);
             return;
         }
+	
+	//backtracking
         for(int i = cur; i != nums.size(); ++i){
-            swap(nums[cur],nums[i]);
+            swap(nums[cur],nums[i]);//the smart method to mark the number used.
             permute(nums,cur+1);
             swap(nums[cur],nums[i]);
         }
