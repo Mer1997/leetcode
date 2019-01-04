@@ -1,0 +1,34 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    set<vector<int>> myset;
+    vector<vector<int>> res_;
+   
+    //backtracking like permutations I, too slowly and faster then 5.73 for this question 
+    void permuteUnique(vector<int>&nums, int cur){
+        if(cur == nums.size()){
+            vector<int> t;
+            for(auto i: nums){ t.push_back(i); }
+            myset.insert(t);
+            return;
+        }
+        
+        for(int i = cur; i!= nums.size(); ++i){
+            swap(nums[cur],nums[i]);
+            permuteUnique(nums,cur+1);
+            swap(nums[cur],nums[i]);
+        }
+    }
+    
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        permuteUnique(nums,0);
+        for(auto n: myset)
+            res_.push_back(n);
+        return res_;
+    }
+};
