@@ -1,0 +1,32 @@
+const static auto io_sync_off =[](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    vector<vector<int>> res_;
+
+    void permute(vector<int>& nums, int cur){
+        if(cur == nums.size()){
+            vector<int> t;
+            for(auto i:nums){
+                t.push_back(i);
+            }
+            res_.push_back(t);
+            return;
+        }
+        for(int i = cur; i != nums.size(); ++i){
+            swap(nums[cur],nums[i]);
+            permute(nums,cur+1);
+            swap(nums[cur],nums[i]);
+        }
+        return ;
+    }
+    
+    vector<vector<int>> permute(vector<int>& nums) {
+        permute(nums,0);
+        return res_;
+    }
+};
