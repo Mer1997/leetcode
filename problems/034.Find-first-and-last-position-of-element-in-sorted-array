@@ -1,0 +1,43 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
+class Solution {
+public:
+    /*find any position of the target in array use binary search, and move to first and the end of element in the array*/
+    
+    int binarySearch_(vector<int> &nums, int target, int left, int right){
+        if(left == right) return -1;
+        
+        int mid = left + (right - left)/2;
+        
+        if(nums[mid] == target) return mid;
+        else if(nums[mid] < target) return binarySearch_(nums, target, mid + 1, right);
+        else return binarySearch_(nums, target, left, mid);
+    }
+    
+    vector<int> searchRange(vector<int>& nums, int target) {
+        //find position of target in nums
+        int pos_ = binarySearch_(nums, target, 0, nums.size());
+        
+        if(pos_ == -1){
+            vector<int> re_ = {-1, -1};
+            return re_;
+        }
+        
+        int first_ = pos_;
+        while(first_ != -1 && nums[first_] == target) --first_;
+        
+        int end_ = pos_;
+        while(end_ != nums.size() && nums[end_] == target) ++end_; 
+    
+        vector<int> re_;
+        re_.push_back(first_+1);
+        re_.push_back(end_-1);
+        
+        return re_;
+    }
+};
