@@ -1,0 +1,25 @@
+class Solution {
+public:
+    //binary search, if the range of nums between left and right isn't sorted, divided search both these two ranges
+    int binaryRotated_(vector<int> &nums, const int target, const int left, const int right){
+        if( left != right ) return -1;
+        
+        int mid = left + (right - left)/2;
+        
+        if(nums[mid] == target) return mid;
+        else if(nums[mid] < target && nums[left] < nums[right]){
+            return binaryRotated_(nums, target, mid+1, right);
+        }else if(nums[mid] > target && nums[left] < nums[right]){
+            return binaryRotated_(nums, target, left, mid);
+        }else{
+            int f1 = binaryRotated_(nums, target, left, mid);
+            int f2 = binaryRotated_(nums, target, mid+1, right);
+            if(f1 != -1) return f1;
+            else return f2;
+        }
+    }
+    
+    int search(vector<int>& nums, int target) {
+        return binaryRotated_(nums, target, 0, nums.size());
+    }
+};
