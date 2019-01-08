@@ -1,3 +1,45 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    /*  binary search, give up one range between [left, mid) and [mid+1, right) use the rule that changed.
+        first, we use mid to divided the range [left, right), and wherever the index of rotated begin, 
+        the element must be dividing the range to two range, such as [left, rotated) and [rotated, mid) if the element is in the range [left, mid). 
+        So we add one judging if the target < nums[left] when the target < num[mid], choice another range, 
+        that's a way we can give up a half range when every search like traditional binary search.
+    */
+    
+    int binaryRotated_(vector<int> &nums, const int target, const int left, const int right){
+        if( left == right ) return -1;
+        
+        int mid = left + (right - left)/2;
+        
+        if(nums[mid] == target) return mid;
+        
+        //judging the range of the target's position.
+        else if(nums[mid] < target){
+            
+            if(nums[right] < target) return binaryRotated_(nums, target, left, mid);
+            
+            else return binaryRotated_(nums, target, mid+1, right);
+        
+        }else{//target < nums[mid]
+            
+            if(target < nums[left]) return binaryRotated_(nums, target, mid+1, right);
+            
+            else return binaryRotated_(nums, target, left, mid);
+        }
+    }
+    
+    int search(vector<int>& nums, int target) {
+        return binaryRotated_(nums, target, 0, nums.size());
+    }
+};
+
 class Solution {
 public:
     //binary search, if the range of nums between left and right isn't sorted, divided search both these two ranges
