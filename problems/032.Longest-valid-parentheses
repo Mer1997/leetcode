@@ -1,0 +1,44 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    /*4ms faster than 100
+      two-step:
+      1. match parentheses, and record the location
+      2. scan the vector and find the longest range that was all matched
+     */
+    int longestValidParentheses(string s) {
+        vector<bool> valid(s.length(),false);
+        stack<int> unmatch;
+        
+        for(int i = 0; i != s.length(); ++i){
+            if(s[i] == '('){
+                unmatch.push(i);   
+            }else{
+                if(unmatch.size() != 0){
+                    valid[i] = true;
+                    valid[unmatch.top()] = true;
+                    unmatch.pop();
+                }
+            }
+        }
+        
+        int longest_ = 0;
+        int pre_ = 0;
+        for(int i = 0; i != valid.size(); ++i){
+            if(valid[i] == true){
+                ++pre_;
+            }else{
+                longest_ = pre_ > longest_ ? pre_ : longest_;
+                pre_ = 0;
+            }
+        }
+        longest_ = pre_ > longest_ ? pre_ : longest_;
+        
+        return longest_;
+    }
+};
