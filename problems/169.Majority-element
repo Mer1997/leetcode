@@ -1,0 +1,24 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int m_ = 0;
+        int res_;
+        unordered_map<int,int> count;
+        for(auto num: nums){
+            count[num]++;
+        }
+        for(auto c: count){
+            if(c.second > m_){
+                res_ = c.first;
+                m_ = c.second;
+            }
+        }
+        return res_;
+    }
+};
