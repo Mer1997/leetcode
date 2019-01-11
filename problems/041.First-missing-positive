@@ -1,0 +1,12 @@
+const static auto io_sync_off = [](){ std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        unordered_map<int,int> mymap_;
+        for(auto n: nums)
+            mymap_[n] = 1;
+        for(int i = 1; i != nums.size()+1; ++i)
+            if(mymap_[i] == 0) return i;
+        return nums.size()+1;
+    }
+};
