@@ -8,6 +8,7 @@
  */
 class Solution {
 public:
+    /*not good method*/
     bool hasCycle(ListNode *head) {
         while(head != NULL){
             if(head->val == -19970927) return true;
