@@ -1,0 +1,46 @@
+const static auto io_sync_off = [](){ std::ios::sync_with_stdio(false); std:cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int a_cur = a.length() - 1;
+        int b_cur = b.length() - 1;
+        int c = 0;
+        string re_;
+        
+        while(a_cur != -1 && b_cur != -1){
+            
+            c += a[a_cur] - '0';
+            c += b[b_cur] - '0';
+            
+            if(c % 2) re_ = '1' + re_;
+            else re_ = '0' + re_;
+            
+            c /= 2;
+            --a_cur;--b_cur;
+        }
+        while(a_cur != -1){
+            
+            c += a[a_cur] - '0';
+            
+            if(c % 2) re_ = '1' + re_;
+            else re_ = '0' + re_;
+            
+            c /= 2;
+            --a_cur;
+        }
+        while(b_cur != -1){
+            
+            c += b[b_cur] - '0';
+            
+            if(c % 2) re_ = '1' + re_;
+            else re_ = '0' + re_;
+            
+            c /= 2;
+            --a_cur;--b_cur;
+        }
+        
+        if(c % 2) re_ = '1' + re_;
+        
+        return re_;
+    }
+};
