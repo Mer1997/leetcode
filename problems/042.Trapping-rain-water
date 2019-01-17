@@ -1,0 +1,33 @@
+const static auto io_sync_off = [](){ std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    
+    int trap(vector<int>& height) {
+        if(height.size() < 3) return 0;
+        int res_ = 0;
+        
+        int highest = 0;
+        int highest_index = 0;
+        for(int i = 0; i != height.size(); ++i)
+            if(height[i] >= highest){ highest = height[i]; highest_index = i;}
+        
+        int l, r;
+
+        for(l=0, r=l+1; r <= highest_index; ++r){
+            if(height[r] >= height[l]){
+                res_ += (r-l-1) * height[l];
+                l = r;
+                
+            }else res_ -= height[r];
+        }
+        
+        for(r=height.size()-1, l=r-1; l >= highest_index; --l){
+            if(height[l] >= height[r]){
+                res_ += (r-l-1) * height[r];
+                r = l;
+            }else res_ -= height[l];
+        }
+        
+        return res_;
+    }
+};
