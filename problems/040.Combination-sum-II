@@ -1,0 +1,36 @@
+static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
+class Solution {
+public:
+    
+    vector<vector<int>> res_;
+    
+    void combination_(vector<int>& candidates, int cur, vector<int> set, int target){
+        if(cur == candidates.size() || candidates[cur] > target)
+            return;
+        if(candidates[cur] == target){
+            set.push_back(candidates[cur]);
+            res_.push_back(set);
+            return;
+        }
+        
+        set.push_back(candidates[cur]);
+        combination_(candidates, cur+1, set, target-candidates[cur]);
+        set.pop_back();
+        while(cur+1 != candidates.size() && candidates[cur] == candidates[cur+1]) ++cur;
+        combination_(candidates, cur+1, set, target);
+        
+    }
+    
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<int> set;
+        combination_(candidates, 0, set, target);
+        return res_;
+    }
+};
