@@ -1,0 +1,16 @@
+const static auto io_sync_off = [](){ std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        if(rowIndex<0) return {};
+        
+        vector<int> result(rowIndex+1,1);
+        
+	//A magic formula, I don't know why but it can run, Also here I use a fact that the pascal's triangle is symmetrical
+        for(size_t k=1; k<=(rowIndex/2);++k){
+            result[k] = (int)(result[k-1] * (rowIndex+1-k)/k );
+            result[rowIndex-k]=result[k];
+        }
+        return result;
+    }
+};
