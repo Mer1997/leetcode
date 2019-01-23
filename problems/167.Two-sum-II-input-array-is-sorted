@@ -1,0 +1,20 @@
+const static auto io_sync_off = [](){ std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        for(int i = 0; i != numbers.size(); ++i){
+            if(numbers[i] > target) break;
+            target -= numbers[i];
+            for(int j = i+1; j != numbers.size(); ++j){
+                if(numbers[j] > target) break;
+                if(numbers[j] == target){
+                    return {i+1, j+1};
+                }
+                else continue;
+            }
+            target+= numbers[i];
+        }
+        
+        return {};
+    }
+};
