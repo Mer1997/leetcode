@@ -1,0 +1,20 @@
+const static auto io_sync_off = [](){std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, int> mymap;
+        int index = 1;
+        vector<vector<string>> res;
+        for(auto s: strs){
+            string t = s;
+            sort(t.begin(), t.end());
+            if(mymap[t] == 0){
+                mymap[t] = index++;
+                res.push_back({s});
+            }else{
+                res[mymap[t]-1].push_back(s);
+            }
+        }
+        return res;
+    }
+};
