@@ -1,0 +1,27 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+const static auto io_sync_off = [](){std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        unordered_map<ListNode*, int> mymap;
+        ListNode* head = headA;
+        while(head != nullptr){
+            mymap[head] = 1;
+            head=head->next;
+        }
+        head = headB;
+        while(head != nullptr){
+            if(mymap[head] == 1)
+                return head;
+            head = head->next;
+        }
+        return nullptr;
+    }
+};
