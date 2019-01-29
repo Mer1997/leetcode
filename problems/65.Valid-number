@@ -1,0 +1,46 @@
+/*Not accept, it's a worst question, even '3.' can also be a correct answer*/
+class Solution {
+public:
+    int digits(const string s, const int begin){
+        int ret = begin;
+        int len = s.length();
+        while(ret != len && s[ret] >= '0' && s[ret] <= '9') ++ret;
+        return ret;
+    }
+    int whitespace(const string s, const int begin){
+        int ret = begin;
+        int len = s.length();
+        while(ret != len && s[ret] == ' ') ++ret;
+        return ret;
+    }
+    bool isNumber(string s) {
+        if(s.length() == 0) return false;
+        int cur = 0;
+
+        cur = whitespace(s, cur);
+
+        if(s[cur] == '-' || s[cur] == '+') cur += 1;
+
+        int cur1;
+        if(s[cur] != '.'){
+            cur1 = digits(s, cur);
+            if(cur1 == cur) return false;
+            else cur = cur1;
+        }
+
+        if(s[cur] == '.'){
+            cur1 = digits(s, ++cur);
+            if(cur1 == cur) return false;
+            else cur = cur1;
+        }
+
+        if(s[cur] == 'e'){
+            cur1 = digits(s, ++cur);
+            if(cur1 == cur) return false;
+            else cur = cur1;
+        }
+
+        cur = whitespace(s, cur);
+        return cur == s.length() ? true : false;
+    }
+};
