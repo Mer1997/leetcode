@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+
+/* We can swap two child node when this 2 situation:
+ * 1. both two child node is leaf node
+ * 2. both two child node is nullptr
+ * if not, we swap it after we deal with child nodes
+ */
+public:
+    bool isLeafNode(TreeNode *root){
+        assert(root != nullptr);
+        return (root->left == nullptr && root->right == nullptr) ? true : false;
+    }
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == nullptr) return nullptr;
+        bool lb = root->left == nullptr || isLeafNode(root->left);
+        bool rb = root->right == nullptr || isLeafNode(root->right);
+        if(!lb || !rb){
+            if(!lb) invertTree(root->left);
+            if(!rb) invertTree(root->right); 
+        }
+        TreeNode *t = root->left;
+        root->left = root->right;
+        root->right = t;
+        t = nullptr;
+        return root;
+    }
+};
