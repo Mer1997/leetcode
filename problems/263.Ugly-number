@@ -1,3 +1,4 @@
+/*Solution 1: 8ms beats 3.35%*/
 class Solution {
 public:
     bool isUgly(int num) {
@@ -8,6 +9,29 @@ public:
             num /= 3;
         while(num%2 == 0)
             num /= 2;
+        return num == 1 ? true : false;
+    }
+};
+
+
+/*Solution 2: 4ms beats 97.83%*/
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    bool isUgly(int num) {
+        if(num == 0) return false;
+        while(num%2 == 0)
+            num /= 2;
+        while(num%3 == 0)
+            num /= 3;
+        while(num%5 == 0)
+            num /= 5;
+
         return num == 1 ? true : false;
     }
 };
