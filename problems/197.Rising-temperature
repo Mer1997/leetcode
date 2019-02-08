@@ -1,0 +1,9 @@
+# Write your MySQL query statement below
+
+#  Wrong, in some test case, the Id and the RecordDate is not absolutely ordered by descending or ascending
+# SELECT wb.Id FROM Weather wa, Weather wb WHERE wa.Id+1 = wb.Id AND wa.Temperature < wb.Temperature
+
+
+SELECT wa.Id
+FROM Weather wa JOIN Weather wb
+WHERE DATEDIFF(wa.RecordDate, wb.RecordDate) = 1 AND wa.Temperature > wb.Temperature;	 
