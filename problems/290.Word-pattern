@@ -1,0 +1,35 @@
+class Solution {
+public:
+    inline int getword_len(int beg_, string str){
+        int ret = beg_;
+        while(ret != str.length())
+            if(str[ret] == ' ') break;
+            else ret++;
+        return ret;
+    }
+    bool wordPattern(string pattern, string str) {
+        unordered_map<char, string> pattern_map;
+        unordered_map<string, char> str_map;
+        int cur,pi = 0;
+        int len = str.length();
+        for(int i = 0; i != len;){
+            
+            if(str[i] == ' '){ ++i; continue;}
+            
+            cur = i;
+            i = getword_len(i, str);
+            string word = str.substr(cur, i-cur);
+            if(pattern_map.find(pattern[pi]) == pattern_map.end()){
+                if(str_map.find(word) != str_map.end()) return false;
+                pattern_map.insert({pattern[pi],word});
+                str_map.insert({word, pattern[pi]});
+            }else{
+                if(pattern_map[pattern[pi]] != word) return false;
+            }
+            pi++;
+
+        }
+        if(pi != pattern.length()) return false;
+        return true;
+    }
+};
