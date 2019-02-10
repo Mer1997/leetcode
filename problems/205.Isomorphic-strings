@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        if(s.length() != t.length()) return false;
+        unordered_map<char, char> pattern_map;
+        unordered_map<char, char> str_map;
+
+        int len = s.length();
+        for(int i = 0; i != len; ++i){
+            
+            if(pattern_map.find(s[i]) == pattern_map.end()){
+                if(str_map.find(t[i]) != str_map.end()) return false;
+                pattern_map.insert({s[i],t[i]});
+                str_map.insert({t[i], s[i]});
+            }else{
+                if(pattern_map[s[i]] != t[i]) return false;
+            }
+
+        }
+
+        return true;
+    }
+};
+
+
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
