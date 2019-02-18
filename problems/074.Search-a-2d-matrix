@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    //basic search, can be replaced by binary search
+    bool searchRow(const vector<vector<int>> matrix, const int row, const int target){
+        for(int j = 0; j != matrix[row].size(); ++j)
+            if(matrix[row][j] == target) return true;
+        return false;
+    }
+    
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        if(matrix.size() == 0) return false;
+        if(matrix.size() == 1) return searchRow(matrix, 0, target);
+        
+        int i;
+        for(i = 0; i != matrix.size(); ++i){
+            if(matrix[i].size() > 0 && matrix[i][0] > target){
+                --i;
+                break;
+            }
+        }
+        
+        if(i == -1) return false;
+        else if(i == matrix.size()) return searchRow(matrix, matrix.size()-1, target);
+        else return searchRow(matrix, i, target);
+
+    }
+};
