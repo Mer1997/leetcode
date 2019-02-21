@@ -1,0 +1,8 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        int k = 1;
+        while(num / k > k) k++;
+        return num%k == 0 && num/k == k ? true : false;
+    }
+};
