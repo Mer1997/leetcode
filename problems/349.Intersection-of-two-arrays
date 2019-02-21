@@ -1,0 +1,21 @@
+const static auto io_sync_off = [](){std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> mymap;
+        set<int> result;
+        for(vector<int>::iterator iter1 = nums1.begin(); iter1 != nums1.end(); iter1++){
+            mymap[*iter1]++;
+        }
+        for(vector<int>::iterator iter2 = nums2.begin(); iter2 != nums2.end(); iter2++){
+            if(mymap[*iter2] > 0){
+                result.insert(*iter2);
+            }
+        }
+        vector<int> ret;
+        for(auto res: result) ret.push_back(res);
+        return ret;
+    }
+};
+
