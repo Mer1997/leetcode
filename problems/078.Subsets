@@ -1,0 +1,44 @@
+//mer 2019.2
+
+/*
+Given a set of distinct integers, nums, return all possible subsets (the power set).
+
+Note: The solution set must not contain duplicate subsets.
+*/
+
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
+class Solution {
+    vector<vector<int>> ret;
+public:
+    
+    void getSubSet(const vector<int> nums, vector<int> &subset, const int size, const int now, const int index){
+        if(now == size){
+            ret.push_back(subset);
+        }
+        
+        for(int i = index; i != nums.size(); ++i){
+            
+            subset.push_back(nums[i]);
+            getSubSet(nums, subset, size, now+1, i+1);
+            subset.pop_back();
+        }
+        
+    } 
+    
+    vector<vector<int>> subsets(vector<int>& nums) {
+        
+        //i is size of subset
+        vector<int> subset;
+        for(int i = 0; i != nums.size()+1; ++i){
+            getSubSet(nums, subset, i, 0, 0);        
+        }
+        
+        return ret;
+    }
+};
