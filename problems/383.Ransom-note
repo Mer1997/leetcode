@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<char, int> m_map;
+        for(auto c: magazine){
+            m_map[c]++;
+        }
+        for(auto c:ransomNote){
+            if(m_map[c] == 0) return false;
+            m_map[c]--;
+        }
+        return true;
+    }
+};
