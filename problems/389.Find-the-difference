@@ -1,0 +1,19 @@
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        vector<int> par(26);
+        for(auto c: t){
+            ++par[c-'a'];
+        }
+        
+        for(auto c: s){
+            --par[c-'a'];
+        }
+        
+        for(int i = 0; i != 26; ++i){
+            if(par[i] != 0) return 'a'+i;
+        }
+        
+        return 'A';
+    }
+};
