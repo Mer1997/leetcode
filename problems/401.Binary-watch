@@ -1,0 +1,91 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    vector<bool> hours;
+    vector<bool> minutes;
+    
+    void getHours(vector<int> &t_hours, const int num, const int index){
+        
+        if(num == 0){
+            int h = 0;
+            for(int i = 0; i != 4; ++i)
+                h += hours[i] == true ? 1 << i : 0;
+            
+            if(h > 11) return;
+            
+            t_hours.push_back(h);
+            return;
+        }
+        
+        for(int i = index; i != 4; ++i){
+            if(hours[i] == true) continue;
+            hours[i] = true;
+            getHours(t_hours, num-1, i);
+            hours[i] = false;
+        }
+        
+    }
+    
+    void getMinutes(vector<int> &t_minutes, const int num, const int index){
+        
+        if(num == 0){
+            
+            int m = 0;
+    
+            for(int i = 0; i != 6; ++i)
+                m += minutes[i] == true ? 1 << i : 0;
+            
+            if(m > 59) return;
+            
+            t_minutes.push_back(m);
+            return;
+        }
+        
+        for(int i = index; i != 6; ++i){
+            if(minutes[i] == true) continue;
+            minutes[i] = true;
+            getMinutes(t_minutes, num-1, i);
+            minutes[i] = false;           
+        }
+        
+    }
+    
+    void getTime(vector<string> &ret, vector<int> &h, vector<int> &m){
+        
+        string t;
+        for(int i = 0; i != h.size(); ++i){
+            for(int j = 0; j != m.size(); ++j){
+                t = to_string(h[i]);
+                t+= ":";
+                t+= m[j] < 10 ? "0"+to_string(m[j]) : to_string(m[j]);
+                
+                ret.push_back(t);
+            }
+        }        
+    
+        h.clear();
+        m.clear();
+    }
+    
+    vector<string> readBinaryWatch(int num) {
+       
+        hours = vector(4, false);
+        minutes = vector(6, false);
+        
+        vector<string> ret;
+        
+        vector<int> t_hours, t_minutes;
+        for(int i = 0; i != num+1; ++i){
+            getHours(t_hours, i, 0);
+            getMinutes(t_minutes, num-i, 0);
+            getTime(ret, t_hours, t_minutes);
+        }
+        
+        return ret;
+    }
+};
