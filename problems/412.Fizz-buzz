@@ -1,0 +1,28 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> ret;
+        for(int i = 1; i != n+1; ++i){
+            
+            string t = to_string(i);
+            
+            if(i % 3 == 0){
+                t = "Fizz";    
+            }
+            if(i % 5 == 0){
+                if(t == "Fizz") t += "Buzz";
+                else t = "Buzz";
+            }
+            
+            ret.push_back(t);
+        }
+        
+        return ret;
+    }
+};
