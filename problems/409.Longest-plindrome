@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_map<char, int> mymap;
+        for(auto c: s){
+            mymap[c]++;
+        }
+        
+        bool odd = false;
+        int ret = 0;
+        for(auto n: mymap){
+            if(n.second % 2 == 1) odd = true;
+            ret += n.second/2*2;
+        }
+        
+        if(odd) ret++;
+        
+        return ret;
+    }
+};
