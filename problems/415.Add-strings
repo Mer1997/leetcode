@@ -1,0 +1,19 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        string ans;
+        int m = num1.size(), n = num2.size(), c = 0;
+        for (int i = m - 1, j = n - 1; i >= 0 || j >= 0 || c; i--, j--) {
+            int a = i >= 0 ? num1[i] - '0' : 0, b = j >= 0 ? num2[j] - '0' : 0, sum = a + b + c;
+            c = sum / 10;
+            ans = to_string(sum % 10) + ans;
+        }
+        return ans;
+    }
+};
