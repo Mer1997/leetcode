@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    
+    TreeNode* build_(vector<int> &preorder, const int p_index, vector<int> &inorder, const int i_index, const int len){
+        
+        if(len == 0) return nullptr;
+        
+        TreeNode* root = new TreeNode(preorder[p_index]);
+        
+        int i = find(inorder.begin(), inorder.end(), preorder[p_index])-inorder.begin();
+        
+        root->left = build_(preorder, p_index+1,            inorder, i_index,   i-i_index);
+        root->right= build_(preorder, p_index+1+i-i_index,  inorder, i+1,       len-1-i+i_index);
+        
+        return root;
+        
+    }
+    
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return build_(preorder, 0, inorder, 0, inorder.size());
+    }
+};
