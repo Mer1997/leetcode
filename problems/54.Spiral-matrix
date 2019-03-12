@@ -1,0 +1,39 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    
+    vector<int> ret;
+    
+    void spiral_(vector<vector<int>> &matrix, const int top, const int bottom, const int left, const int right){
+        if(left > right || top > bottom) return;
+        
+        for(int i = left; i <=right; ++i){
+            ret.push_back(matrix[top][i]);
+        }
+        
+        for(int i = top+1; top != bottom && i <= bottom; ++i){
+            ret.push_back(matrix[i][right]);
+        }
+        
+        for(int i = right-1; top != bottom && left <= i; --i){
+            ret.push_back(matrix[bottom][i]);
+        }
+        for(int i = bottom-1; left != right && top != bottom && top+1 <= i; --i){
+            ret.push_back(matrix[i][left]);
+        }
+        
+        spiral_(matrix, top+1, bottom-1, left+1, right-1);
+        
+    }
+    
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        if(matrix.size() == 0 || matrix[0].size() == 0) return {};
+        spiral_(matrix, 0, matrix.size()-1, 0, matrix[0].size()-1);
+        return ret;
+    }
+};
