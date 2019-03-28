@@ -1,0 +1,44 @@
+const static auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+class Solution {
+public:
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+        unordered_map<string, int> mmp;
+        
+        for(int i = 0; i != list1.size(); ++i){
+            mmp[list1[i]] = i;
+        }
+        
+        int sum_index = -1;
+        vector<string> ret;
+        
+        for(int i = 0; i != list2.size(); ++i){
+            if(mmp.find(list2[i]) != mmp.end()){
+                if(sum_index == -1){
+                    sum_index = mmp[list2[i]] + i;
+                    ret.push_back(list2[i]);
+                    continue;
+                }
+                
+                if(mmp[list2[i]] + i == sum_index){
+                    ret.push_back(list2[i]);
+                    continue;
+                }
+                
+                if(mmp[list2[i]] + i < sum_index){
+                    sum_index = mmp[list2[i]] + i;
+                    ret.clear();
+                    ret.push_back(list2[i]);
+                    continue;
+                }
+            }
+        }
+        
+        
+        return ret;
+    }
+};
