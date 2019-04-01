@@ -1,0 +1,32 @@
+const static auto io_sync_off=[](){std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);return nullptr;}();
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return build(inorder, postorder, 0, inorder.size()-1, 0, postorder.size()-1);
+    }
+    
+    
+    TreeNode *build(vector<int>& inorder, vector<int>& postorder, const int i_left, const int i_right, const int p_left, const int p_right){
+        if(p_left > p_right || i_left > i_right) return nullptr;
+        
+        TreeNode *node = new TreeNode(postorder[p_right]);
+        
+        vector<int>::iterator iter = find(inorder.begin()+i_left, inorder.begin()+i_right, postorder[p_right]);
+        int index =  iter - inorder.begin();
+        
+        int p_index = p_left+(index-i_left);
+        node->left = build(inorder, postorder, i_left, index-1, p_left, p_index-1);
+        node->right = build(inorder, postorder, index+1, i_right, p_index, p_right-1);
+        
+        return node;
+    }
+};
