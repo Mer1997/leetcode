@@ -1,0 +1,35 @@
+const static auto sync_off = [](){std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+class Solution {
+public:
+    vector<vector<int>> record;
+    int count;
+    int numDistinct(string s, string t) {
+        record = vector(s.length()+1, vector<int>(t.length()+1, -1));
+        count = 0;
+        dp(s, t);
+        return count;
+    }
+    
+    void dp(string s, string t){
+        
+        if(t.length() == 0){
+            count++;
+            return;
+        }
+        
+        if(record[s.length()][t.length()] != -1){
+            count += record[s.length()][t.length()];
+            return;
+        }
+        int tc = count;
+        for(int i = 0; i != s.length() - t.length() +1; ++i){
+            if(s[i] == t[0]){
+                dp(s.substr(i+1), t.substr(1));
+            }
+        }
+        
+        tc = count - tc;
+        record[s.length()][t.length()] = tc;
+    
+    }
+};
