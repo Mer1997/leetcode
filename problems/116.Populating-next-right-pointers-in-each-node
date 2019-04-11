@@ -1,0 +1,62 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+const static auto sync_off = [](){std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return nullptr;}();
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(root == nullptr) return nullptr;
+        queue<Node*> q1;
+        queue<Node*> q2;
+        q1.push(root);
+        
+        while(!(q1.empty() && q2.empty())){
+            if(q1.empty()){
+                connect(q2, q1);
+            }
+            else
+                connect(q1, q2);
+        }
+        return root;
+    }
+    
+    
+    void connect(queue<Node*> &ls, queue<Node*> &rs){
+        Node* r = nullptr;
+        while(!ls.empty()){
+            Node *t = ls.front();
+            if(r == nullptr) r = ls.front();
+            else{
+                r->next = t; 
+                r = t;           
+            }
+            if(t->left != nullptr) rs.push(t->left);
+            if(t->right != nullptr) rs.push(t->right);
+            t = nullptr;
+            //r->val = rs.empty() ? 11 : 22;
+            ls.pop();
+        }
+        if(r != nullptr) r->next = nullptr;
+        r = nullptr;
+        return;
+        
+    }
+};
